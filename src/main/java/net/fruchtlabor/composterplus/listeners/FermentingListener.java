@@ -161,5 +161,6 @@ public class FermentingListener implements Listener
                 }
             }
         }
+        event.getPlayer().getInventory().getItemInMainHand().setAmount(event.getPlayer().getInventory().getItemInMainHand().getAmount()-1);
     }
 }

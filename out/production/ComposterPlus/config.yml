@@ -27,3 +27,9 @@ SpecialCompost:
     1:
       material: "stone"
       level: 2
+Text:
+  Compost_Gui: "wooden_shovel"
+  CompostGui_Text: "Here is a list of compostable goods"
+  Loot_Gui: "BOOK"
+  LootGui_Text: "Here is a list of lootable things"
+  ReloadMessage: "reloaded"

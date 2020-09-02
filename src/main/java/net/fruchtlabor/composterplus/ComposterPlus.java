@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import main.java.net.fruchtlabor.composterplus.commands.DefaultCommand;
 import main.java.net.fruchtlabor.composterplus.listeners.FermentingListener;
+import main.java.net.fruchtlabor.composterplus.listeners.GUIManagemant;
 import org.bukkit.configuration.ConfigurationSection;
 import java.io.File;
 import org.bukkit.event.Listener;
@@ -29,6 +30,7 @@ public class ComposterPlus extends JavaPlugin
         //Listener Section
         final FermentingListener fermentingListener = new FermentingListener(this);
         this.getServer().getPluginManager().registerEvents((Listener)fermentingListener,this);
+        this.getServer().getPluginManager().registerEvents(new GUIManagemant(this), this);
 
         //Command Section
         this.getCommand("cp").setExecutor(new DefaultCommand());
