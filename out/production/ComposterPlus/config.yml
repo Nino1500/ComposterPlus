@@ -1,0 +1,29 @@
+#Placing a Hopper under the composter, it will fill extraloot loot into the hopper
+Hopperinteraction: true
+ExtraLoot:
+  loots:
+    1:
+      #Heres a list of minecraft items: https://minecraft-ids.grahamedgecombe.com/
+      material: "grass_block"
+      amount: 1
+      # Chance to get this item from fermenting, place higher chances on top for the best results!
+      chance: 80.0
+      # XP ORBS dropped next to the hopper
+      xp: 3
+    2:
+      material: "dirt"
+      amount: 1
+      chance: 50.0
+      xp: 2
+    3:
+      material: "minecraft:grass"
+      amount: 1
+      chance: 10.0
+      xp: 0
+#Here you can define extra compost to be composted, like stone if you wish.
+#Also note !! That you can only take level from 1 to 7, (use Integer and !no! decimal numbers like 0.5)
+SpecialCompost:
+  composts:
+    1:
+      material: "stone"
+      level: 2
