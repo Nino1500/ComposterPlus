@@ -167,7 +167,7 @@ public class FermentingListener implements Listener
                 }
                 state.setBlockData(data);
                 state.update();
-                if(lev.getLevel() == 7){
+                if(lev.getLevel() == 6){
                     loc.setY(loc.getY() - 1.0);
                     this.giveExtraBountyHopper(loc);
                 }
