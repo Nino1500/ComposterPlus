@@ -11,6 +11,10 @@ public class SpecialCompost
         this.material = section.getString("material");
         this.level = section.getInt("level");
     }
+    public SpecialCompost(String material, int level){
+        this.material=material;
+        this.level=level;
+    }
 
     public String getMaterial() {
         return this.material;

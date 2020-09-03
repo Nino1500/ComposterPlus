@@ -15,6 +15,13 @@ public class Loot
         this.chance = section.getDouble("chance");
         this.xp = section.getInt("xp");
     }
+
+    public Loot(String material, int amount, double chance, int exp){
+        this.mat=material;
+        this.amount=amount;
+        this.chance=chance;
+        this.xp=exp;
+    }
     
     public String getMat() {
         return this.mat;

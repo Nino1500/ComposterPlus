@@ -7,4 +7,4 @@ soft-depend: [Vault]
 commands:
   cp:
     description: "Main command"
-    usage: "Main command"
+    usage:

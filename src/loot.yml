@@ -1,0 +1,19 @@
+loot:
+  1:
+    #Heres a list of minecraft items: https://minecraft-ids.grahamedgecombe.com/
+    material: "grass_block"
+    amount: 1
+    # Chance to get this item from fermenting, place higher chances on top for the best results!
+    chance: 80.0
+    # XP ORBS dropped next to the hopper
+    xp: 3
+  2:
+    material: "dirt"
+    amount: 1
+    chance: 50.0
+    xp: 2
+  3:
+    material: "minecraft:grass"
+    amount: 1
+    chance: 10.0
+    xp: 0

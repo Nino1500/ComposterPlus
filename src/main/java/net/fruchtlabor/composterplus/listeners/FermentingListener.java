@@ -11,6 +11,7 @@ import java.util.Objects;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_16_R2.entity.CraftExperienceOrb;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.block.Hopper;
 import org.bukkit.event.block.Action;
