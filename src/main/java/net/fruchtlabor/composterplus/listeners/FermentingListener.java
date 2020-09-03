@@ -7,10 +7,13 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.BlockState;
 
 import java.util.List;
+import java.util.Objects;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.block.Hopper;
+import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Location;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
@@ -44,30 +47,6 @@ public class FermentingListener implements Listener
 
                 if (levelled.getLevel() == levelled.getMaximumLevel()) {
                     this.giveExtraBounty(b.getLocation());
-                }
-            }
-        }
-    }
-
-    @EventHandler
-    public void FermentingHopper(final InventoryMoveItemEvent event) {
-
-        if (event.getSource().getType().name().equalsIgnoreCase("HOPPER") && this.plugin.getConfig().getBoolean("Hopperinteraction")) {
-
-            final Location loc = event.getSource().getLocation();
-            assert loc != null;
-
-            loc.setY(loc.getY() - 1.0);
-
-            if (loc.getBlock() != null && loc.getBlock().getType().equals(Material.COMPOSTER)) {
-
-                final Levelled levelled = (Levelled)loc.getBlock().getBlockData();
-
-                if (levelled.getLevel() == 6) {
-
-                    loc.setY(loc.getY() - 1.0);
-
-                    this.giveExtraBountyHopper(loc);
                 }
             }
         }
@@ -157,10 +136,42 @@ public class FermentingListener implements Listener
 
                     state.setBlockData(data);
                     state.update();
-
+                    event.getPlayer().getInventory().getItemInMainHand().setAmount(event.getPlayer().getInventory().getItemInMainHand().getAmount()-1);
                 }
             }
         }
-        event.getPlayer().getInventory().getItemInMainHand().setAmount(event.getPlayer().getInventory().getItemInMainHand().getAmount()-1);
+    }
+    @EventHandler
+    public void FermentingHopper(final InventoryMoveItemEvent event) {
+
+        if (event.getSource().getType().name().equalsIgnoreCase("HOPPER") && this.plugin.getConfig().getBoolean("Hopperinteraction")) {
+
+            final Location loc = event.getSource().getLocation();
+            assert loc != null;
+
+            loc.setY(loc.getY() - 1.0);
+
+            if(loc.getBlock().getType().equals(Material.COMPOSTER)){
+
+                final Block block = loc.getBlock();
+                final BlockState state = block.getState();
+                final BlockData data = block.getBlockData();
+                final Levelled lev = (Levelled) data;
+                for (SpecialCompost compost : ComposterPlus.sclist){
+                    if(compost.getMaterial().equalsIgnoreCase(event.getItem().getType().name())){
+                        if (lev.getLevel() < lev.getMaximumLevel()) {
+                            lev.setLevel(compost.getLevel() + lev.getLevel());
+                        }
+                        event.setItem(new ItemStack(Material.AIR));
+                    }
+                }
+                state.setBlockData(data);
+                state.update();
+                if(lev.getLevel() == 7){
+                    loc.setY(loc.getY() - 1.0);
+                    this.giveExtraBountyHopper(loc);
+                }
+            }
+        }
     }
 }

@@ -36,7 +36,7 @@ public class GUIManagemant implements Listener {
                     if(meta.getDisplayName().equalsIgnoreCase(ChatColor.GREEN+"specialcompost")){
                         ArrayList<SpecialCompost> sc = ComposterPlus.sclist;
                         Inventory inv = Bukkit.createInventory(null, 54, "specialcompost");
-                        for (int i = 0; i < inv.getSize(); i++) {
+                        for (int i = 0; i < sc.size(); i++) {
                             int finalI = i;
                             inv.addItem(GatherClass.itemgen(sc.get(i).getMaterial(), Material.matchMaterial(sc.get(i).getMaterial()), new ArrayList<>(){{add("lvl: "+sc.get(finalI).getLevel());}}, false));
                         }
@@ -102,7 +102,7 @@ public class GUIManagemant implements Listener {
                     }
                 }
             }
+            event.setCancelled(true);
         }
-        event.setCancelled(true);
     }
 }
