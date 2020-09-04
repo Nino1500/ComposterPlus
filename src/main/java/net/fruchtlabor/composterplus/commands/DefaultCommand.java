@@ -42,7 +42,11 @@ public class DefaultCommand implements CommandExecutor {
                                     double chance = Double.parseDouble(strings[3]);
                                     int xp = Integer.parseInt(strings[4]);
                                     if(am > 0 && chance > 0.0 && xp >= 0){
-                                        int id = ComposterPlus.lootList.size()+1;
+                                        int id = ComposterPlus.lootList.size()+2;
+                                        if(id>53){
+                                            player.sendMessage("CompostPlus currently does not support more than 53 Items on Specialcompost or on Loot-GUI!");
+                                            player.sendMessage("If you want to see more (I dont know why) let me know on spigot!");
+                                        }
                                         ComposterPlus.addLoot(new Loot(itemStack.getType().name(), am, chance, xp), id);
                                         player.sendMessage(ChatColor.RED+"Added "+ChatColor.GREEN+itemStack.getType().name()+ChatColor.RED+" to loot, with ID: "+ChatColor.GOLD+id);
                                         reload();
@@ -51,7 +55,11 @@ public class DefaultCommand implements CommandExecutor {
                             }
                             if(strings[1].equalsIgnoreCase("specialcompost")){
                                 int lvl = Integer.parseInt(strings[2]);
-                                int id = ComposterPlus.sclist.size()+1;
+                                int id = ComposterPlus.sclist.size()+2;
+                                if(id>53){
+                                    player.sendMessage("CompostPlus currently does not support more than 53 Items on Specialcompost or on Loot-GUI!");
+                                    player.sendMessage("If you want to see more (I dont know why) let me know on spigot!");
+                                }
                                 ComposterPlus.addSc(new SpecialCompost(itemStack.getType().name(), lvl), id);
                                 player.sendMessage(ChatColor.RED+"Added "+ChatColor.GREEN+itemStack.getType().name()+ChatColor.RED+" to specialcompost, with ID: "+ChatColor.GOLD+id);
                                 reload();
@@ -62,11 +70,7 @@ public class DefaultCommand implements CommandExecutor {
             }
             else{
                 if(player.hasPermission("cp.use")){
-                    Inventory inventory = Bukkit.createInventory(null, 9, "CompostingPlus");
-                    inventory.setItem(4, GatherClass.itemgen(ChatColor.GREEN+"specialcompost", Material.matchMaterial(ComposterPlus.plugin.getConfig().get("Text.Compost_Gui")+""), new ArrayList<String>(){{add(ChatColor.WHITE+""+ComposterPlus.plugin.getConfig().get("Text.CompostGui_Text")+"");}}, false));
-                    inventory.setItem(6, GatherClass.itemgen(ChatColor.GOLD+"loot", Material.matchMaterial(ComposterPlus.plugin.getConfig().get("Text.Loot_Gui")+""), new ArrayList<String>(){{add(ChatColor.WHITE+""+ComposterPlus.plugin.getConfig().get("Text.LootGui_Text")+"");}}, false));
-                    inventory.setItem(2, GatherClass.itemgen(ChatColor.YELLOW+"MC_Compost", Material.OAK_SIGN, new ArrayList<>(){{add("Minecraft Standard Compost");}}, false));
-                    player.openInventory(inventory);
+                    player.openInventory(GatherClass.getMainGui());
                 }
             }
         }

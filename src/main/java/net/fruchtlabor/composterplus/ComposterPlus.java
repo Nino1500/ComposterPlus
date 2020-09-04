@@ -26,7 +26,7 @@ public class ComposterPlus extends JavaPlugin
     public static ArrayList<SpecialCompost> sclist;
     public static Plugin plugin;
 
-    public void onEnable() {
+    public void onEnable() { //TODO: Wenn level von specialcompost > als noch benötigte -> error
 
         plugin = this;
 
@@ -42,9 +42,6 @@ public class ComposterPlus extends JavaPlugin
 
         //Command Section
         this.getCommand("cp").setExecutor(new DefaultCommand());
-
-
-        addSc(new SpecialCompost("wooden_shovel", 1), 2); //TODO Testing
 
     }
 

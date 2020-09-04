@@ -34,25 +34,7 @@ public class FermentingListener implements Listener
     public FermentingListener(final Plugin plugin) {
         this.plugin = plugin;
     }
-    
-    @EventHandler
-    public void Fermenting(final PlayerInteractEvent event) {
 
-        final Player player = event.getPlayer();
-
-        if (event.getClickedBlock() != null) {
-            final Block b = event.getClickedBlock();
-
-            if (b.getType().equals(Material.COMPOSTER)) {
-                final Levelled levelled = (Levelled)b.getBlockData();
-
-                if (levelled.getLevel() == levelled.getMaximumLevel()) {
-                    this.giveExtraBounty(b.getLocation());
-                }
-            }
-        }
-    }
-    
     private void giveExtraBountyHopper(final Location location) {
 
         Loot loot = chooseOnWeight(ComposterPlus.lootList);
@@ -114,34 +96,50 @@ public class FermentingListener implements Listener
             if (countWeight >= r)
                 return item;
         }
+
         throw new RuntimeException("Should never be shown.");
+
     }
     
     @EventHandler
-    public void fillSpecials(final PlayerInteractEvent event) {
+    public void Fermenting(final PlayerInteractEvent event) {
 
-        if (event.getClickedBlock() != null && event.getClickedBlock().getType().equals((Object)Material.COMPOSTER)) {
+        if (event.getClickedBlock() != null && event.getClickedBlock().getType().equals((Object) Material.COMPOSTER)) {
 
             final Block block = event.getClickedBlock();
             final BlockState state = block.getState();
             final BlockData data = block.getBlockData();
-            final Levelled lev = (Levelled)data;
+            final Levelled lev = (Levelled) data;
 
-            for (final SpecialCompost compost : ComposterPlus.sclist) {
+            if(lev.getMaximumLevel()>lev.getLevel()){
 
-                if (compost.getMaterial().equalsIgnoreCase(event.getMaterial().name())) {
+                for (final SpecialCompost compost : ComposterPlus.sclist) {
 
-                    if (lev.getLevel() < lev.getMaximumLevel()) {
-                        lev.setLevel(compost.getLevel() + lev.getLevel());
+                    if (compost.getMaterial().equalsIgnoreCase(event.getMaterial().name())) {
+
+                        if(lev.getLevel()+compost.getLevel()<lev.getMaximumLevel()){
+
+                            lev.setLevel(compost.getLevel() + lev.getLevel());
+
+                        }
+                        else {
+
+                            lev.setLevel(lev.getMaximumLevel());
+
+                        }
+                        event.getPlayer().getInventory().getItemInMainHand().setAmount(event.getPlayer().getInventory().getItemInMainHand().getAmount() - 1);
                     }
 
                     state.setBlockData(data);
                     state.update();
-                    event.getPlayer().getInventory().getItemInMainHand().setAmount(event.getPlayer().getInventory().getItemInMainHand().getAmount()-1);
                 }
+            }
+            else {
+                this.giveExtraBounty(block.getLocation());
             }
         }
     }
+
     @EventHandler
     public void FermentingHopper(final InventoryMoveItemEvent event) {
 
@@ -158,17 +156,27 @@ public class FermentingListener implements Listener
                 final BlockState state = block.getState();
                 final BlockData data = block.getBlockData();
                 final Levelled lev = (Levelled) data;
+
                 for (SpecialCompost compost : ComposterPlus.sclist){
                     if(compost.getMaterial().equalsIgnoreCase(event.getItem().getType().name())){
-                        if (lev.getLevel() < lev.getMaximumLevel()) {
+
+                        if(lev.getLevel()+compost.getLevel()<lev.getMaximumLevel()){
+
                             lev.setLevel(compost.getLevel() + lev.getLevel());
                         }
+                        else {
+
+                            lev.setLevel(lev.getMaximumLevel());
+
+                        }
+
                         event.setItem(new ItemStack(Material.AIR));
                     }
                 }
                 state.setBlockData(data);
                 state.update();
-                if(lev.getLevel() == 6){
+
+                if(lev.getLevel() == lev.getMaximumLevel()){
                     loc.setY(loc.getY() - 1.0);
                     this.giveExtraBountyHopper(loc);
                 }

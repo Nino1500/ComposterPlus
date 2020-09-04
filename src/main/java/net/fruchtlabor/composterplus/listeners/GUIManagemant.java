@@ -40,6 +40,7 @@ public class GUIManagemant implements Listener {
                             int finalI = i;
                             inv.addItem(GatherClass.itemgen(sc.get(i).getMaterial(), Material.matchMaterial(sc.get(i).getMaterial()), new ArrayList<>(){{add("lvl: "+sc.get(finalI).getLevel());}}, false));
                         }
+                        inv.setItem(45, GatherClass.itemgen("<-", Material.BARRIER, new ArrayList<String>(), false));
                         event.getWhoClicked().openInventory(inv);
                     }
                     if(meta.getDisplayName().equalsIgnoreCase(ChatColor.GOLD+"loot")){
@@ -49,7 +50,11 @@ public class GUIManagemant implements Listener {
                             int finalI = i;
                             inv.addItem(GatherClass.itemgen(loot.get(i).getMat(), Material.matchMaterial(loot.get(i).getMat()), new ArrayList<String>(){{add("Chance: "+loot.get(finalI).getChance()); add("Amount: "+loot.get(finalI).getAmount()); add("Exp: "+loot.get(finalI).getXp());}}, false));
                         }
+                        inv.setItem(45, GatherClass.itemgen("<-", Material.BARRIER, new ArrayList<String>(), false));
                         event.getWhoClicked().openInventory(inv);
+                    }
+                    if(meta.getDisplayName().equalsIgnoreCase("<-")){
+                        event.getWhoClicked().openInventory(GatherClass.getMainGui());
                     }
                     if(meta.getDisplayName().equalsIgnoreCase(ChatColor.YELLOW+"MC_Compost")){
                         Inventory inv = Bukkit.createInventory(null, 54, "MC_Compost");
@@ -98,6 +103,7 @@ public class GUIManagemant implements Listener {
                         inv.addItem(GatherClass.itemgen("Warped Wart Block", Material.WARPED_WART_BLOCK, new ArrayList<>(){{add("lvl: ~0.85");}}, false));
                         inv.addItem(GatherClass.itemgen("Cake", Material.CAKE, new ArrayList<>(){{add("lvl: ~1.0");}}, false));
                         inv.addItem(GatherClass.itemgen("Pumpkin Pie", Material.PUMPKIN_PIE, new ArrayList<>(){{add("lvl: ~1.0");}}, false));
+                        inv.setItem(45, GatherClass.itemgen("<-", Material.BARRIER, new ArrayList<String>(), false));
                         event.getWhoClicked().openInventory(inv);
                     }
                 }
