@@ -1,4 +1,4 @@
-SpecialCompost:
+SpecialCompost: #To disable it, just delete the stuff below (or if u wanna remove it and then reload ingame)
   1:
     material: "stone"
     level: 2

@@ -28,7 +28,7 @@ public class GatherClass {
         Inventory inventory = Bukkit.createInventory(null, 9, "CompostingPlus");
         inventory.setItem(4, GatherClass.itemgen(ChatColor.GREEN+"specialcompost", Material.matchMaterial(ComposterPlus.plugin.getConfig().get("Text.Compost_Gui")+""), new ArrayList<String>(){{add(ChatColor.WHITE+""+ComposterPlus.plugin.getConfig().get("Text.CompostGui_Text")+"");}}, false));
         inventory.setItem(6, GatherClass.itemgen(ChatColor.GOLD+"loot", Material.matchMaterial(ComposterPlus.plugin.getConfig().get("Text.Loot_Gui")+""), new ArrayList<String>(){{add(ChatColor.WHITE+""+ComposterPlus.plugin.getConfig().get("Text.LootGui_Text")+"");}}, false));
-        inventory.setItem(2, GatherClass.itemgen(ChatColor.YELLOW+"MC_Compost", Material.OAK_SIGN, new ArrayList<>(){{add("Minecraft Standard Compost");}}, false));
+        inventory.setItem(2, GatherClass.itemgen(ChatColor.YELLOW+"MC_Compost", Material.OAK_SIGN, new ArrayList<String>(){{add("Minecraft Standard Compost");}}, false));
         return inventory;
     }
 

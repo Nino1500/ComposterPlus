@@ -15,6 +15,7 @@ import org.bukkit.craftbukkit.v1_16_R2.entity.CraftExperienceOrb;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.block.Hopper;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Location;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
@@ -80,9 +81,6 @@ public class FermentingListener implements Listener
             e.printStackTrace();
             Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "Seems like you failed to write the correct Material name in the config!" + ChatColor.RED + loot.getMat());
         }
-
-
-
     }
 
     public Loot chooseOnWeight(List<Loot> items) {
@@ -96,9 +94,7 @@ public class FermentingListener implements Listener
             if (countWeight >= r)
                 return item;
         }
-
         throw new RuntimeException("Should never be shown.");
-
     }
     
     @EventHandler
@@ -179,6 +175,20 @@ public class FermentingListener implements Listener
                 if(lev.getLevel() == lev.getMaximumLevel()){
                     loc.setY(loc.getY() - 1.0);
                     this.giveExtraBountyHopper(loc);
+                }
+            }
+        }
+    }
+    @EventHandler
+    public void onTopPlace(BlockPlaceEvent event){
+        Location location = event.getBlock().getLocation();
+        location.setY(location.getY()-1);
+        Block block = location.getBlock();
+        if(block.getType() == Material.COMPOSTER){
+            for (int i = 0; i < ComposterPlus.sclist.size(); i++) {
+                if(ComposterPlus.sclist.get(i).getMaterial().equalsIgnoreCase(event.getBlock().getType().name()) && !(event.getBlock().getType() == Material.HOPPER)){
+                    event.setCancelled(true);
+                    return;
                 }
             }
         }
