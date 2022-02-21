@@ -1,19 +1,20 @@
-package main.java.net.fruchtlabor.composterplus;
+package net.fruchtlabor.composterplus;
 
-import main.java.net.fruchtlabor.composterplus.commands.DefaultCommand;
-import main.java.net.fruchtlabor.composterplus.listeners.FermentingListener;
-import main.java.net.fruchtlabor.composterplus.listeners.GUIManagement;
+import net.fruchtlabor.composterplus.commands.DefaultCommand;
+import net.fruchtlabor.composterplus.listeners.FermentingListener;
+import net.fruchtlabor.composterplus.listeners.GUIManagement;
+import org.bukkit.command.Command;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.ConfigurationSection;
-import java.io.File;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
-
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class ComposterPlus extends JavaPlugin
 {
@@ -32,12 +33,12 @@ public class ComposterPlus extends JavaPlugin
 
         //Listener Section
         final FermentingListener fermentingListener = new FermentingListener(this);
-        this.getServer().getPluginManager().registerEvents((Listener)fermentingListener,this);
+        this.getServer().getPluginManager().registerEvents(fermentingListener,this);
         this.getServer().getPluginManager().registerEvents(new GUIManagement(this), this);
 
         //Command Section
-        this.getCommand("cp").setExecutor(new DefaultCommand());
-
+        Objects.requireNonNull(this.getCommand("cp"), "Command cp has not been initialized!")
+                .setExecutor(new DefaultCommand());
     }
 
     public static void setupConfig() {
@@ -66,7 +67,7 @@ public class ComposterPlus extends JavaPlugin
             }
         }
 
-        ComposterPlus.lootList = new ArrayList<Loot>();
+        ComposterPlus.lootList = new ArrayList<>();
         YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(data);
         ConfigurationSection section = yamlConfiguration.getConfigurationSection("loot");
         if(section != null){
@@ -91,7 +92,7 @@ public class ComposterPlus extends JavaPlugin
             }
         }
 
-        ComposterPlus.sclist = new ArrayList<SpecialCompost>();
+        ComposterPlus.sclist = new ArrayList<>();
         YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(data);
         ConfigurationSection section = yamlConfiguration.getConfigurationSection("SpecialCompost");
         if(section != null){

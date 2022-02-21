@@ -1,26 +1,21 @@
-package main.java.net.fruchtlabor.composterplus.commands;
+package net.fruchtlabor.composterplus.commands;
 
-import main.java.net.fruchtlabor.composterplus.ComposterPlus;
-import main.java.net.fruchtlabor.composterplus.GatherClass;
-import main.java.net.fruchtlabor.composterplus.Loot;
-import main.java.net.fruchtlabor.composterplus.SpecialCompost;
-import org.bukkit.Bukkit;
+import net.fruchtlabor.composterplus.ComposterPlus;
+import net.fruchtlabor.composterplus.GatherClass;
+import net.fruchtlabor.composterplus.Loot;
+import net.fruchtlabor.composterplus.SpecialCompost;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import java.io.IOException;
-import java.util.ArrayList;
+import org.jetbrains.annotations.NotNull;
 
 public class DefaultCommand implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if(commandSender instanceof Player){
             Player player = (Player) commandSender;
             if(strings.length>0){

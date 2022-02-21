@@ -1,4 +1,4 @@
-package main.java.net.fruchtlabor.composterplus;
+package net.fruchtlabor.composterplus;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
